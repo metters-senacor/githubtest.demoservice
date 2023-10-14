@@ -8,9 +8,6 @@ plugins {
 	id 'maven-publish'
 }
 
-group = 'com.senacor.githubtest'
-version = '0.0.1-SNAPSHOT'
-
 java {
 	sourceCompatibility = '11'
 }
