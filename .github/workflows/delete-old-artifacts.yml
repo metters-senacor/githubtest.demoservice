@@ -1,5 +1,24 @@
-- uses: actions/delete-package-versions@v4
-  with:
-    package-name: 'githubtest.demoservice'
-    package-type: 'maven'
-    min-versions-to-keep: 3
+name: Delete old artifacts
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+    - uses: actions/delete-package-versions@v4
+      with:
+        package-name: 'githubtest.demoservice'
+        package-type: 'maven'
+        min-versions-to-keep: 3
+    - uses: actions/delete-package-versions@v4
+      with:
+        package-name: 'githubtest.demoservice'
+        package-type: 'container'
+        min-versions-to-keep: 3
