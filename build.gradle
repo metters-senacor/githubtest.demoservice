@@ -49,8 +49,8 @@ publishing {
 		}
 	}
 	publications {
-		gpr(MavenPublication) {
-			from(components.java)
+		bootJava(MavenPublication) {
+			artifact tasks.named("bootJar")
 		}
 	}
 }
