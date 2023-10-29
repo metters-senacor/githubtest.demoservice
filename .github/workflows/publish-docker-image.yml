@@ -37,6 +37,6 @@ jobs:
     - name: 'Build Inventory Image'
       run: |
         source gradle.properties
-        echo "Publish image with tags: ${{version}} and latest"
-        docker push ghcr.io/${{github.actor}}/githubtest.demoservice:${{version}}
+        echo "Publish image with tags: ${version} and latest"
+        docker push ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:latest
