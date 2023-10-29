@@ -34,9 +34,10 @@ jobs:
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
 
-    - name: 'Build Inventory Image'
+    - name: 'Tag and Push Container Image'
       run: |
         source gradle.properties
         echo "Publish image with tags: ${version} and latest"
+        docker tag ghcr.io/${{github.actor}}/githubtest.demoservice:latest ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:latest
