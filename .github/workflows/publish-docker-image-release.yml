@@ -1,11 +1,11 @@
-name: Build and Publish Docker Image to Container Registry
+name: Build and Publish Release Docker Image to Container Registry
 
 on:
   release:
     types: [created]
 
 jobs:
-  build-and-publish-docker-image:
+  build-and-publish-release-docker-image:
 
     runs-on: ubuntu-latest
     permissions:

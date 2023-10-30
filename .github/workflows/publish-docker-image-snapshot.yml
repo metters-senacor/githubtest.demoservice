@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image to Container Registry
+name: Build and Publish Snapshot Docker Image to Container Registry
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-publish-docker-image:
+  build-and-publish-snapshot-docker-image:
 
     runs-on: ubuntu-latest
     permissions:
@@ -24,7 +24,7 @@ jobs:
         echo "BUILDNUMBER=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
         
     - name: 'Require SNAPSHOT version'
-      if: ${{ ! endsWith(${VERSION}, 'SNAPSHOT') }}
+      if: ${{ ! endsWith(env.VERSION, 'SNAPSHOT') }}
       run: |
         echo "This workflow should only be triggered for SNAPSHOT builds"
         exit 1
