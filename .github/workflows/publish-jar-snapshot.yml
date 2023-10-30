@@ -37,7 +37,7 @@ jobs:
     - name: 'Read build number'
       id: buildnumber
       run: |
-        BUILDNUMBER=$(git rev-list HEAD --count)
+        BUILDNUMBER=$(git rev-list main --count)
         echo "BUILDNUMBER=${BUILDNUMBER}" >> "$GITHUB_ENV"
         echo "BUILDNUMBER=${BUILDNUMBER}"
         echo "BUILDNUMBER=${BUILDNUMBER}" >> "$GITHUB_OUTPUT"
