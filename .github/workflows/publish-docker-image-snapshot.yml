@@ -13,15 +13,28 @@ jobs:
       contents: read
       packages: write
 
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+      buildnumber: ${{ steps.buildnumber.outputs.BUILDNUMBER }}
     steps:
     - name: 'Checkout Source Code'
       uses: actions/checkout@v3
 
     - name: 'Read version'
+      id: version
       run: |
         source gradle.properties
         echo "VERSION=${version}" >> "$GITHUB_ENV"
-        echo "BUILDNUMBER=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
+        echo "VERSION=${version}"
+        echo "VERSION=${version}" >> "$GITHUB_OUTPUT"
+
+    - name: 'Read build number'
+      id: buildnumber
+      run: |
+        BUILDNUMBER=$(git rev-list main --count)
+        echo "BUILDNUMBER=${BUILDNUMBER}" >> "$GITHUB_ENV"
+        echo "BUILDNUMBER=${BUILDNUMBER}"
+        echo "BUILDNUMBER=${BUILDNUMBER}" >> "$GITHUB_OUTPUT"
         
     - name: 'Require SNAPSHOT version'
       if: ${{ ! endsWith(env.VERSION, 'SNAPSHOT') }}
@@ -56,3 +69,11 @@ jobs:
         docker tag ghcr.io/${{github.actor}}/githubtest.demoservice:${VERSION}-${BUILDNUMBER} ghcr.io/${{github.actor}}/githubtest.demoservice:latest
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:${VERSION}-${BUILDNUMBER}
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:latest
+
+  update-yml:
+    needs: build-and-publish-snapshot-docker-image
+    uses: stombers-senacor/application-release-yaml/.github/workflows/update-yaml.yml@main
+    with:
+      artifact_name: "githubtest.demoservice"
+      artifact_version: ${{ needs.build-and-publish-snapshot-docker-image.outputs.version }}
+      artifact_buildnumber: ${{ needs.build-and-publish-snapshot-docker-image.outputs.buildnumber }}
