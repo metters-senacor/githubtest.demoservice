@@ -70,20 +70,9 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update-yml:
-    runs-on: ubuntu-latest
     needs: build-and-publish-snapshot-jar
-    steps:
-      - name: 'Setup environment'
-        env:
-          VERSION: ${{ needs.build-and-publish-snapshot-jar.outputs.version }}
-          BUILDNUMBER: ${{ needs.build-and-publish-snapshot-jar.outputs.buildnumber }}
-        run: |
-          echo "VERSION=${VERSION}"
-          echo "BUILDNUMBER=${BUILDNUMBER}"
-      - name: 'Update yml'
-        uses: stombers-senacor/application-release-yaml/.github/workflows/update-yaml.yml@main
-        with:
-          artifact_name: "demo"
-          artifact_version: ${VERSION}
-          artifact_buildnumber: ${BUILDNUMBER}
-
+    uses: stombers-senacor/application-release-yaml/.github/workflows/update-yaml.yml@main
+    with:
+      artifact_name: "demo"
+      artifact_version: ${{ needs.build-and-publish-snapshot-jar.outputs.version }}
+      artifact_buildnumber: ${{ needs.build-and-publish-snapshot-jar.outputs.buildnumber }}
