@@ -74,7 +74,7 @@ jobs:
     needs: build-and-publish-snapshot-docker-image
     runs-on: ubuntu-latest
     steps:
-      - name: TODO
+      - name: 'TODO'
         run: echo "TODO run E2E Tests"
 
   update-yml:
