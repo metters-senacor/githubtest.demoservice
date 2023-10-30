@@ -31,15 +31,15 @@ jobs:
       run: |
         source gradle.properties
         echo "VERSION=${version}" >> "$GITHUB_ENV"
-        echo "VERSION=${VERSION}"
-        echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
+        echo "VERSION=${{env.VERSION}}"
+        echo "VERSION=${{env.VERSION}}" >> "$GITHUB_OUTPUT"
 
     - name: 'Read build number'
       id: buildnumber
       run: |
         echo "BUILDNUMBER=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
-        echo "BUILDNUMBER=${BUILDNUMBER}"
-        echo "BUILDNUMBER=${BUILDNUMBER}" >> "$GITHUB_OUTPUT"
+        echo "BUILDNUMBER=${{env.BUILDNUMBER}}"
+        echo "BUILDNUMBER=${{env.BUILDNUMBER}}" >> "$GITHUB_OUTPUT"
 
     - name: 'Require SNAPSHOT version'
       if: ${{ ! endsWith(env.VERSION, 'SNAPSHOT') }}
