@@ -22,10 +22,14 @@ jobs:
         server-id: github
         settings-path: ${{ github.workspace }}
 
+    - name: 'Read version'
+      run: |
+        source gradle.properties
+
     - name: Build Container Image with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
-        arguments: bootBuildImage --imageName=ghcr.io/${{github.actor}}/githubtest.demoservice
+        arguments: bootBuildImage --imageName=ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
 
     - name: 'Login to GitHub Container Registry'
       uses: docker/login-action@v1
@@ -38,6 +42,6 @@ jobs:
       run: |
         source gradle.properties
         echo "Publish image with tags: ${version} and latest"
-        docker tag ghcr.io/${{github.actor}}/githubtest.demoservice:latest ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
+        docker tag ghcr.io/${{github.actor}}/githubtest.demoservice:${version} ghcr.io/${{github.actor}}/githubtest.demoservice:latest
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:${version}
         docker push ghcr.io/${{github.actor}}/githubtest.demoservice:latest
