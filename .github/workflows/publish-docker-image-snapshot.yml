@@ -91,5 +91,5 @@ jobs:
           -H "Authorization: Bearer ${{secrets.UPDATE_APPLICATION_YAML}}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/stombers-senacor/application-release-yaml/actions/workflows/update-yaml.yml/dispatches \
-          -d '{"ref":"main","inputs":{"artifact_name": "githubtest.demoservice", "artifact_version": "${{ needs.build-and-publish-snapshot-docker-image.outputs.version }}" } }'
+          -d '{"ref":"main","inputs":{"artifact_name": "githubtest\.demoservice", "artifact_version": "${{ needs.build-and-publish-snapshot-docker-image.outputs.version }}" } }'
 
