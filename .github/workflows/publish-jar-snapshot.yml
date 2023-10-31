@@ -81,8 +81,7 @@ jobs:
 
   update-yml:
     needs:
-      - build-and-publish-snapshot-docker-image
-      - run-e2e-tests
+      - build-and-publish-snapshot-jar
     runs-on: ubuntu-latest
     steps:
       - name: 'trigger update yaml'
