@@ -76,7 +76,6 @@ jobs:
     steps:
       - name: 'TODO'
         run: echo "TODO run E2E Tests"
-
   update-yml:
     needs:
       - build-and-publish-snapshot-docker-image
